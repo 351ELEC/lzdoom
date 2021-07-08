@@ -41,6 +41,7 @@
 
 bool I_SetCursor(FTexture *cursorpic)
 {
+	SDL_ShowCursor(SDL_DISABLE);
 	static SDL_Cursor *cursor;
 	static SDL_Surface *cursorSurface;
 
@@ -52,9 +53,8 @@ bool I_SetCursor(FTexture *cursorpic)
 			return false;
 		}
 
-		SDL_ShowCursor(SDL_DISABLE);
 		if (cursorSurface == NULL)
-			cursorSurface = SDL_CreateRGBSurface (0, 32, 32, 32, MAKEARGB(0,255,0,0), MAKEARGB(0,0,255,0), MAKEARGB(0,0,0,255), MAKEARGB(255,0,0,0));
+			//cursorSurface = SDL_CreateRGBSurface (0, 32, 32, 32, MAKEARGB(0,255,0,0), MAKEARGB(0,0,255,0), MAKEARGB(0,0,0,255), MAKEARGB(255,0,0,0));
 
 		SDL_LockSurface(cursorSurface);
 		uint8_t buffer[32*32*4];
@@ -64,11 +64,11 @@ bool I_SetCursor(FTexture *cursorpic)
 		memcpy(cursorSurface->pixels, bmp.GetPixels(), 32*32*4);
 		SDL_UnlockSurface(cursorSurface);
 
-		if (cursor)
-			SDL_FreeCursor (cursor);
-		cursor = SDL_CreateColorCursor (cursorSurface, 0, 0);
-		SDL_SetCursor (cursor);
-		SDL_ShowCursor(SDL_ENABLE);
+		//if (cursor)
+		//	SDL_FreeCursor (cursor);
+		//cursor = SDL_CreateColorCursor (cursorSurface, 0, 0);
+		//SDL_SetCursor (cursor);
+		//SDL_ShowCursor(SDL_ENABLE);
 	}
 	else
 	{

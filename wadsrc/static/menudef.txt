@@ -565,6 +565,8 @@ OptionMenu "ChatControlsMenu" protected
 	StaticText ""
 	Control    "$CNTRLMNU_SCOREBOARD"       , "+showscores"
 	Control    "$CNTRLMNU_TOGGLESCOREBOARD" , "togglescoreboard"
+	Control	   "$CNTRLMNU_PAUSE"            , "pause"
+	Control    "$CNTRLMNU_INVOKEMENU"       , "menu_main"
 
 	StaticText ""
 	Control    "$CNTRLMNU_SAY"     , "messagemode"
