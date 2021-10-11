@@ -668,12 +668,12 @@ bool M_Responder (event_t *ev)
 			{
 			case KEY_JOY2:
 			case KEY_PAD_A:
-				mkey = MKEY_Enter;
+				mkey = MKEY_Back;
 				break;
 
 			case KEY_JOY1:
 			case KEY_PAD_B:
-				mkey = MKEY_Back;
+				mkey = MKEY_Enter;
 				break;
 
 			case KEY_JOY3:
