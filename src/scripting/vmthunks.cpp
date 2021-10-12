@@ -330,6 +330,20 @@ DEFINE_ACTION_FUNCTION_NATIVE(FStringStruct, ToDouble, StringToDbl)
 	ACTION_RETURN_FLOAT(self->ToDouble());
 }
 
+static void StringSubst(FString *self, const FString &substr, const FString& replc)
+{
+	self->Substitute(substr, replc);
+}
+
+DEFINE_ACTION_FUNCTION_NATIVE(FStringStruct, Substitute, StringSubst)
+{
+	PARAM_SELF_STRUCT_PROLOGUE(FString);
+	PARAM_STRING(substr);
+	PARAM_STRING(replc);
+	StringSubst(self, substr, replc);
+	return 0;
+}
+
 static void StringSplit(FString *self, TArray<FString> *tokens, const FString &delimiter, int keepEmpty)
 {
 	self->Split(*tokens, delimiter, static_cast<FString::EmptyTokenType>(keepEmpty));
@@ -2419,10 +2433,10 @@ DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, GetTopOfStatusbar, GetTopOfStatusb
 	ACTION_RETURN_INT(self->GetTopOfStatusbar());
 }
 
-void SBar_DrawTexture(DBaseStatusBar *self, int texid, double x, double y, int flags, double alpha, double w, double h, double scaleX, double scaleY)
+void SBar_DrawTexture(DBaseStatusBar *self, int texid, double x, double y, int flags, double alpha, double w, double h, double scaleX, double scaleY, int style)
 {
 	if (!screen->HasBegun2D()) ThrowAbortException(X_OTHER, "Attempt to draw to screen outside a draw function");
-	self->DrawGraphic(FSetTextureID(texid), x, y, flags, alpha, w, h, scaleX, scaleY);
+	self->DrawGraphic(FSetTextureID(texid), x, y, flags, alpha, w, h, scaleX, scaleY, ERenderStyle(style));
 }
 
 DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawTexture, SBar_DrawTexture)
@@ -2437,14 +2451,15 @@ DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawTexture, SBar_DrawTexture)
 	PARAM_FLOAT(h);
 	PARAM_FLOAT(scaleX);
 	PARAM_FLOAT(scaleY);
-	SBar_DrawTexture(self, texid, x, y, flags, alpha, w, h, scaleX, scaleY);
+	PARAM_INT(style);
+	SBar_DrawTexture(self, texid, x, y, flags, alpha, w, h, scaleX, scaleY, style);
 	return 0;
 }
 
-void SBar_DrawImage(DBaseStatusBar *self, const FString &texid, double x, double y, int flags, double alpha, double w, double h, double scaleX, double scaleY)
+void SBar_DrawImage(DBaseStatusBar *self, const FString &texid, double x, double y, int flags, double alpha, double w, double h, double scaleX, double scaleY, int style)
 {
 	if (!screen->HasBegun2D()) ThrowAbortException(X_OTHER, "Attempt to draw to screen outside a draw function");
-	self->DrawGraphic(TexMan.CheckForTexture(texid, ETextureType::Any), x, y, flags, alpha, w, h, scaleX, scaleY);
+	self->DrawGraphic(TexMan.CheckForTexture(texid, ETextureType::Any), x, y, flags, alpha, w, h, scaleX, scaleY, ERenderStyle(style));
 }
 
 DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawImage, SBar_DrawImage)
@@ -2459,11 +2474,12 @@ DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawImage, SBar_DrawImage)
 	PARAM_FLOAT(h);
 	PARAM_FLOAT(scaleX);
 	PARAM_FLOAT(scaleY);
-	SBar_DrawImage(self, texid, x, y, flags, alpha, w, h, scaleX, scaleY);
+	PARAM_INT(style);
+	SBar_DrawImage(self, texid, x, y, flags, alpha, w, h, scaleX, scaleY, style);
 	return 0;
 }
 
-void SBar_DrawString(DBaseStatusBar *self, DHUDFont *font, const FString &string, double x, double y, int flags, int trans, double alpha, int wrapwidth, int linespacing, double scaleX, double scaleY);
+void SBar_DrawString(DBaseStatusBar *self, DHUDFont *font, const FString &string, double x, double y, int flags, int trans, double alpha, int wrapwidth, int linespacing, double scaleX, double scaleY, int style);
 
 DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawString, SBar_DrawString)
 {
@@ -2479,7 +2495,8 @@ DEFINE_ACTION_FUNCTION_NATIVE(DBaseStatusBar, DrawString, SBar_DrawString)
 	PARAM_INT(linespacing);
 	PARAM_FLOAT(scaleX);
 	PARAM_FLOAT(scaleY);
-	SBar_DrawString(self, font, string, x, y, flags, trans, alpha, wrapwidth, linespacing, scaleX, scaleY);
+	PARAM_INT(style);
+	SBar_DrawString(self, font, string, x, y, flags, trans, alpha, wrapwidth, linespacing, scaleX, scaleY, style);
 	return 0;
 }
 

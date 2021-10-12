@@ -1289,6 +1289,15 @@ void G_Ticker ()
 	default:
 		break;
 	}
+	// Do some more aggressive GC maintenance when the game ticker is inactive. 
+	if ((gamestate != GS_LEVEL && gamestate != GS_TITLELEVEL) || paused || P_CheckTickerPaused())
+	{
+		size_t ac = std::max<size_t>(10, GC::AllocCount);
+		for (size_t i = 0; i < ac; i++)
+		{
+			if (!GC::CheckGC()) break;
+		}
+	}
 
 	// [MK] Additional ticker for UI events right after all others
 	E_PostUiTick();
@@ -1685,13 +1694,18 @@ static void G_QueueBody (AActor *body)
 //
 // G_DoReborn
 //
+CVAR (Bool, pistolstart, false, CVAR_ARCHIVE|CVAR_GLOBALCONFIG)
 EXTERN_CVAR(Bool, sv_singleplayerrespawn)
 void G_DoReborn (int playernum, bool freshbot)
 {
+	cluster_info_t *cluster = FindClusterInfo (level.cluster);
+	bool ishub = (cluster != nullptr && (cluster->flags & CLUSTER_HUB));
+
 	if (!multiplayer && !(level.flags2 & LEVEL2_ALLOWRESPAWN) && !sv_singleplayerrespawn &&
 		!G_SkillProperty(SKILLP_PlayerRespawn))
 	{
-		if (BackupSaveName.Len() > 0 && FileExists (BackupSaveName.GetChars()))
+		if (BackupSaveName.Len() > 0 && FileExists (BackupSaveName.GetChars())
+			&& (ishub || !pistolstart || !gameinfo.gametype == GAME_Doom))
 		{ // Load game from the last point it was saved
 			savename = BackupSaveName;
 			gameaction = ga_autoloadgame;

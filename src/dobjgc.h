@@ -42,6 +42,9 @@ namespace GC
 	// Number of bytes currently allocated through M_Malloc/M_Realloc.
 	extern size_t AllocBytes;
 
+	// Number of allocated objects since last CheckGC call.
+	extern size_t AllocCount;
+
 	// Amount of memory to allocate before triggering a collection.
 	extern size_t Threshold;
 
@@ -104,10 +107,15 @@ namespace GC
 	}
 
 	// Check if it's time to collect, and do a collection step if it is.
-	static inline void CheckGC()
+	static inline bool CheckGC()
 	{
+		AllocCount = 0;
 		if (AllocBytes >= Threshold)
+		{
 			Step();
+			return true;
+		}
+		return false;
 	}
 
 	// Forces a collection to start now.
@@ -194,13 +202,6 @@ public:
 		T q = GC::ReadBarrier(pp);
 		assert(q != NULL);
 		return *q;
-	}
-	T *operator&() throw()
-	{
-		// Does not perform a read barrier. The only real use for this is with
-		// the DECLARE_POINTER macro, where a read barrier would be a very bad
-		// thing.
-		return &pp;
 	}
 	T operator->() throw()
 	{

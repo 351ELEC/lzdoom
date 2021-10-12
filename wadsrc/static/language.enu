@@ -1894,6 +1894,7 @@ DSPLYMNU_SKYMODE				= "Sky render mode";
 DSPLYMNU_LINEARSKY				= "Linear skies";
 DSPLYMNU_GZDFULLBRIGHT			= "Fullbright overrides sector color";
 DSPLYMNU_MODELS					= "Models";
+DSPLYMNU_MODELSCARMACK			= "Models (Carmack)";
 DSPLYMNU_SCALEFUZZ				= "Scale fuzz effect";
 DSPLYMNU_SPRITECULL				= "Sprite Cull Distance";
 DSPLYMNU_LINECULL				= "Wall Cull Distance";
@@ -2013,6 +2014,8 @@ MISCMNU_QUICKEXIT				= "Allow quick exit";
 MISCMNU_NOCHEATS				= "Disable classic keyboard cheats";
 MISCMNU_ALWAYSTALLY				= "Show Tally Screen On Level Exit";
 MISCMNU_SETSLOTSTRICT			= "Strict KEYCONF Weapons/Players";
+MISCMNU_HIDEEXTREME				= "Hide extreme skill level";
+MISCMNU_PISTOLSTART				= "Pistol start (Doom)";
 
 // Automap Options
 AUTOMAPMNU_TITLE				= "AUTOMAP OPTIONS";
@@ -2750,6 +2753,7 @@ DSPLYMNU_GAMMA		= "Gamma correction";
 DSPLYMNU_CONTRAST 	= "Contrast";
 DSPLYMNU_SATURATION = "Saturation";
 DSPLYMNU_HWGAMMA	= "Hardware Gamma";
+DSPLYMNU_FOV		= "Field of view";
 
 // OpenGL Options
 GLMNU_TITLE			= "OpenGL Options";

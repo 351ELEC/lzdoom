@@ -70,6 +70,7 @@ DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, statusscreen_single)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, statusscreen_coop)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, statusscreen_dm)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, mSliderColor)
+DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, mSliderBackColor)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, defaultbloodcolor)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, telefogheight)
 DEFINE_FIELD_X(GameInfoStruct, gameinfo_t, defKickback)
@@ -358,6 +359,12 @@ void FMapInfoParser::ParseGameInfo()
 			}
 			else gameinfo.mCheatMapArrow = "";
 		}
+		else if (nextKey.CompareNoCase("dialogue") == 0)
+		{
+			sc.MustGetToken(TK_StringConst);
+			gameinfo.Dialogue = sc.String;
+			gameinfo.AddDialogues.Clear();
+		}
 		// Insert valid keys here.
 		GAMEINFOKEY_STRING(mCheatKey, "cheatKey")
 			GAMEINFOKEY_STRING(mEasyKey, "easyKey")
@@ -412,6 +419,7 @@ void FMapInfoParser::ParseGameInfo()
 			GAMEINFOKEY_FLOAT(dimamount, "dimamount")
 			GAMEINFOKEY_FLOAT(bluramount, "bluramount")
 			GAMEINFOKEY_STRING(mSliderColor, "menuslidercolor")
+			GAMEINFOKEY_STRING(mSliderBackColor, "menusliderbackcolor")
 			GAMEINFOKEY_INT(definventorymaxamount, "definventorymaxamount")
 			GAMEINFOKEY_INT(defaultrespawntime, "defaultrespawntime")
 			GAMEINFOKEY_INT(defaultdropstyle, "defaultdropstyle")
@@ -439,7 +447,6 @@ void FMapInfoParser::ParseGameInfo()
 			GAMEINFOKEY_FONT(mStatscreenAuthorFont, "statscreen_authorfont")
 			GAMEINFOKEY_BOOL(norandomplayerclass, "norandomplayerclass")
 			GAMEINFOKEY_BOOL(forcekillscripts, "forcekillscripts") // [JM] Force kill scripts on thing death. (MF7_NOKILLSCRIPTS overrides.)
-			GAMEINFOKEY_STRING(Dialogue, "dialogue")
 			GAMEINFOKEY_STRINGARRAY(AddDialogues, "adddialogues", 0, false)
 			GAMEINFOKEY_STRING(statusscreen_single, "statscreen_single")
 			GAMEINFOKEY_STRING(statusscreen_coop, "statscreen_coop")

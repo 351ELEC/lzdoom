@@ -343,6 +343,10 @@ void G_NewInit ()
 		pawn->Destroy();
 	}
 
+	// Destroy thinkers that may remain after change level failure
+	// Usually, the list contains just a sentinel when such error occurred
+	DThinker::DestroyThinkersInList(STAT_TRAVELLING);
+
 	G_ClearSnapshots ();
 	netgame = false;
 	multiplayer = multiplayernext;
@@ -1076,6 +1080,8 @@ void G_DoLoadLevel (int position, bool autosave, bool newGame)
 
 	TThinkerIterator<AActor> it;
 	AActor* ac;
+
+	level.flags3 |= LEVEL3_LIGHTCREATED;
 	// Initial setup of the dynamic lights.
 	while ((ac = it.Next()))
 	{
@@ -2031,6 +2037,10 @@ void FLevelLocals::Tick ()
 
 void FLevelLocals::Mark()
 {
+	for (auto &c : CorpseQueue)
+	{
+		GC::Mark(c);
+	}
 	for (auto &s : sectorPortals)
 	{
 		GC::Mark(s.mSkybox);
