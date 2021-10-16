@@ -676,7 +676,7 @@ bool M_Responder (event_t *ev)
 				mkey = MKEY_Enter;
 				break;
 
-			case KEY_JOY3:
+			case KEY_JOY4:
 			case KEY_PAD_X:
 				mkey = MKEY_Clear;
 				break;

@@ -1781,7 +1781,6 @@ CNTRLMNU_INVENTORY_TITLE			= "Customize Inventory Controls";
 CNTRLMNU_OTHER_TITLE				= "Customize Other Controls";
 CNTRLMNU_POPUPS_TITLE				= "Strife Popup Screens Controls";
 CNTRLMNU_PAUSE					= "Pause";
-CNTRLMNU_INVOKEMENU				= "Main Menu";
 CNTRLMNU_DISPLAY_INC				= "Increase Display Size";
 CNTRLMNU_DISPLAY_DEC				= "Decrease Display Size";
 CNTRLMNU_OPEN_MAIN				= "Open Menu with Controller";
