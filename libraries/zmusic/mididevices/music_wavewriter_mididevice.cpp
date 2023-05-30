@@ -35,6 +35,7 @@
 
 // HEADER FILES ------------------------------------------------------------
 
+#include <stdexcept>
 #include "mididevice.h"
 #include "zmusic/m_swap.h"
 #include "../music_common/fileio.h"

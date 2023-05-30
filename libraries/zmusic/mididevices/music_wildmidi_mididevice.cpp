@@ -36,6 +36,7 @@
 
 #include "mididevice.h"
 #include "zmusic/zmusic_internal.h"
+#include <stdexcept>
 
 #ifdef HAVE_WILDMIDI
 

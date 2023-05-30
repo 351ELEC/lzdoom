@@ -31,6 +31,7 @@
 **---------------------------------------------------------------------------
 */
 
+#include <stdexcept>
 #include "streamsource.h"
 #include "oplsynth/opl.h"
 #include "oplsynth/opl_mus_player.h"

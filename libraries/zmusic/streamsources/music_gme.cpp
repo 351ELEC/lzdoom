@@ -37,6 +37,7 @@
 // Uncomment if you are using the DLL version of GME.
 //#define GME_DLL
 
+#include <stdexcept>
 #include <algorithm>
 #include "streamsource.h"
 #include <gme/gme.h>

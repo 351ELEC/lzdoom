@@ -35,6 +35,7 @@
 // HEADER FILES ------------------------------------------------------------
 
 #include <stdlib.h>
+#include <stdexcept>
 
 #include "zmusic/zmusic_internal.h"
 #include "mididevice.h"
